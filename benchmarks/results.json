@@ -1,0 +1,455 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "model": {
+    "name": "gpt-6.1-sol",
+    "reasoningEffort": "ultra"
+  },
+  "environment": {
+    "node": "v24.13.1",
+    "mermaid": "11.12.0",
+    "playwright": "1.62.1",
+    "browser": "155.0.8059.85"
+  },
+  "skillFilesSha256": {
+    "SKILL.md": "c7437e0d0ff44121e73c30b9c97ed9853b2a1292400c1c43eb5520aad3308acd",
+    "agents/openai.yaml": "b23363a83a907a3edcb1c32b3413c85bab2c458ffecf75c8514932f1225055b2",
+    "scripts/diagram.cjs": "a84feb6763fad8dd3d57c359b9cbce5255e1f2873f24bc61d331ee0e491c26e4",
+    "scripts/audit.cjs": "ec52bb13504c3e507ab1bf9412357ff9360bee944f31e40f4060b8593844ef30",
+    "scripts/runtime.cjs": "4587917f9367075d2269c260490b88cb7ddaf89cd2b94d1186ffeae522396edf",
+    "scripts/setup.cjs": "ba3c8579a72a502af0058f5b479eee8b5b7e17be44670a4120a342f544c3bd25",
+    "package.json": "5e845870d349fc284754d72753df1f7aa871ff3af6090ffb008d8431dd1c8046",
+    "package-lock.json": "e56d02fa8fea418976f0f0e57aa515c41d3d664f3115b257756104a32ef8e1b4",
+    "benchmarks/render-baseline.cjs": "d18ae2a537dd2489809776d0fe0bdd8ea7ae27f075950e23fa4887be269a690b"
+  },
+  "qualityReview": {
+    "method": "Separate agent; treatment labels, usage, author reviews, and trial order withheld",
+    "scaleMaximum": 4,
+    "requiredUniqueImages": 6,
+    "nativeImageInputHashes": [
+      "9a3ecc025827d6e6b88b51403059a7a6cb14881233fb267bf3e87c592599402f",
+      "9cf39cc48855a85cb6ec7ab53bc1a28a3f1c6a8248d91f3abacb6141765d621c",
+      "b25ca814af88613f4aa3a631631691b633278627fc434b9e64058f71108e288c",
+      "bfce4d695b52513a012f5f7985a5147f0abb4e8ffd15c2ea6cfa5d5376590efc",
+      "c8d744c51365e6876bb4594bd3d22877758307ad9d31a943c8239265d1740d14",
+      "ec42c26b4193948f4ba6893b3a6d83675991cf3c1e648192af38f87bccac029d"
+    ],
+    "allRequiredImagesViewed": true
+  },
+  "runs": [
+    {
+      "id": "run01",
+      "case": "flow",
+      "arm": "without",
+      "promptSha256": "651edbbca03db64791abd507e95bd416792605f4a471bb168131f5abe1085c36",
+      "model": {
+        "name": "gpt-6.1-sol",
+        "reasoningEffort": "ultra"
+      },
+      "inputTokens": 1020021,
+      "cachedInputTokens": 993536,
+      "outputTokens": 7121,
+      "reasoningOutputTokens": 3206,
+      "totalTokens": 1027142,
+      "durationMs": 231586,
+      "elapsedMs": 231538,
+      "turnCount": 1,
+      "modelToolCalls": 20,
+      "interrupted": false,
+      "imageInputs": 8,
+      "uniqueImageInputHashes": [
+        "071e25633da4f257e47cbd7930fd424322226f116e05c173ce1f962085fb77ca",
+        "102a292fcef1fca5454905566a941728d0bb6d8ce02e94ff8a1b2c4c61d4d02e",
+        "1cb63b5f512f6e0d2c49ccae6654dc822d2b17662707f742b0d3ff832585e33e",
+        "5047f0e96a8d686ff2c8443968b8c6e2d36f894df0d9be451d111dfef1453e8f",
+        "a9537bae13c568cc366904526808ed147686d16199bf3de605e152267e91bb1a",
+        "bfce4d695b52513a012f5f7985a5147f0abb4e8ffd15c2ea6cfa5d5376590efc",
+        "c45239e2af52d87393d28563f7673de2b350fe16926e098da5238237c601d75d",
+        "d21c5784f2926b9fed0cf0f96ae0f7ebfc7beebd8c6053c9c7ff3ca2bb5e9e4a"
+      ],
+      "artifacts": [
+        {
+          "file": "diagram.mmd",
+          "sha256": "a94efe0e167b65894248eb607a711d8fbfff5aef138cbbff008cfd16c5cabdbd",
+          "imageInput": null
+        },
+        {
+          "file": "diagram.png",
+          "sha256": "a86a184ec1e2bda031d1d29a4fbc47ac238e78202549058b9b58a931b7a38c9e",
+          "imageInput": false
+        },
+        {
+          "file": "diagram.review.png",
+          "sha256": "bfce4d695b52513a012f5f7985a5147f0abb4e8ffd15c2ea6cfa5d5376590efc",
+          "imageInput": true
+        },
+        {
+          "file": "diagram.svg",
+          "sha256": "6c762d1b05e476111b3727ce21a9621a8c11e3dfc6a4e55ef587a8d4919cf88a",
+          "imageInput": null
+        }
+      ],
+      "environment": {
+        "node": "v24.13.1",
+        "mermaid": "11.12.0",
+        "playwright": "1.62.1",
+        "browser": "155.0.8059.85"
+      },
+      "artifactConsistency": true,
+      "requiredReviewImageHashes": [
+        "bfce4d695b52513a012f5f7985a5147f0abb4e8ffd15c2ea6cfa5d5376590efc"
+      ],
+      "requiredImagesActuallyViewed": true,
+      "quality": {
+        "syntax": 4,
+        "visual": 3,
+        "semantic": 4
+      },
+      "qualityDefects": [
+        "The Reader-to-Web client request edge runs through the Service boundary title near the top center."
+      ],
+      "qualityNotes": "All required initiating-action endpoints and both failure destinations are correct, and all service members are within the boundary. Labels and paths remain usable, including the differentiated failure paths, but the edge crossing the boundary title is a minor overlap.",
+      "blindItem": "item-d"
+    },
+    {
+      "id": "run02",
+      "case": "flow",
+      "arm": "with",
+      "promptSha256": "651edbbca03db64791abd507e95bd416792605f4a471bb168131f5abe1085c36",
+      "model": {
+        "name": "gpt-6.1-sol",
+        "reasoningEffort": "ultra"
+      },
+      "inputTokens": 238356,
+      "cachedInputTokens": 223360,
+      "outputTokens": 4476,
+      "reasoningOutputTokens": 1528,
+      "totalTokens": 242832,
+      "durationMs": 109990,
+      "elapsedMs": 109958,
+      "turnCount": 1,
+      "modelToolCalls": 4,
+      "interrupted": false,
+      "imageInputs": 4,
+      "uniqueImageInputHashes": [
+        "428f4ceac7f018fb5c6280ee43ff69ac1abfff30fd66d7334411132ad413f64c",
+        "585471a8c5277e1343a8703e9d798170bb2ac0288f629cd76a2f4b29c0320f53",
+        "b25ca814af88613f4aa3a631631691b633278627fc434b9e64058f71108e288c"
+      ],
+      "artifacts": [
+        {
+          "file": "diagram.mmd",
+          "sha256": "813b5af675ebfc32aeb7855948dc4713a92676d2a5de2ce2923ded14285161f9",
+          "imageInput": null
+        },
+        {
+          "file": "diagram.png",
+          "sha256": "5fe5cc1cc09ffd72f1a5cf3ecdfdc5db3e651c22430f40f1228cc46c85eb9744",
+          "imageInput": false
+        },
+        {
+          "file": "diagram.review.png",
+          "sha256": "b25ca814af88613f4aa3a631631691b633278627fc434b9e64058f71108e288c",
+          "imageInput": true
+        },
+        {
+          "file": "diagram.svg",
+          "sha256": "599fa72eccdfd85538d60ab1129c76d2cc109a9470b186c51257f944a188e739",
+          "imageInput": null
+        }
+      ],
+      "environment": {
+        "node": "v24.13.1",
+        "mermaid": "11.12.0",
+        "playwright": "1.62.1",
+        "browser": "155.0.8059.85"
+      },
+      "artifactConsistency": true,
+      "requiredReviewImageHashes": [
+        "b25ca814af88613f4aa3a631631691b633278627fc434b9e64058f71108e288c"
+      ],
+      "requiredImagesActuallyViewed": true,
+      "quality": {
+        "syntax": 4,
+        "visual": 4,
+        "semantic": 4
+      },
+      "qualityDefects": [],
+      "qualityNotes": "Every stated relationship uses the initiating component as its source, including Worker-to-Queue job taking and retry return. Reader is outside the service boundary; all seven service components are inside. The long routes and crossings remain traceable, and labels are readable.",
+      "blindItem": "item-b"
+    },
+    {
+      "id": "run03",
+      "case": "sequence",
+      "arm": "with",
+      "promptSha256": "78f867b8b42000c44d1371511877d76b90d66eb8ddb3303034bd7be5f325aeeb",
+      "model": {
+        "name": "gpt-6.1-sol",
+        "reasoningEffort": "ultra"
+      },
+      "inputTokens": 175402,
+      "cachedInputTokens": 167424,
+      "outputTokens": 2149,
+      "reasoningOutputTokens": 675,
+      "totalTokens": 177551,
+      "durationMs": 59959,
+      "elapsedMs": 59923,
+      "turnCount": 1,
+      "modelToolCalls": 3,
+      "interrupted": false,
+      "imageInputs": 1,
+      "uniqueImageInputHashes": [
+        "9cf39cc48855a85cb6ec7ab53bc1a28a3f1c6a8248d91f3abacb6141765d621c"
+      ],
+      "artifacts": [
+        {
+          "file": "diagram.mmd",
+          "sha256": "5c78577781546b5544581eeb774219c4f90ae0c8bdcf260f0a0a11e0899f9d8c",
+          "imageInput": null
+        },
+        {
+          "file": "diagram.png",
+          "sha256": "a9b563e0389092442c156ef045ba63db4ea65a60ffdc28396f21d6b7d2a3512b",
+          "imageInput": false
+        },
+        {
+          "file": "diagram.review.png",
+          "sha256": "9cf39cc48855a85cb6ec7ab53bc1a28a3f1c6a8248d91f3abacb6141765d621c",
+          "imageInput": true
+        },
+        {
+          "file": "diagram.svg",
+          "sha256": "013e0ff2cfb3e7fcde95eb1df92a37a09931035e9dad92f104859bc69104f2cd",
+          "imageInput": null
+        }
+      ],
+      "environment": {
+        "node": "v24.13.1",
+        "mermaid": "11.12.0",
+        "playwright": "1.62.1",
+        "browser": "155.0.8059.85"
+      },
+      "artifactConsistency": true,
+      "requiredReviewImageHashes": [
+        "9cf39cc48855a85cb6ec7ab53bc1a28a3f1c6a8248d91f3abacb6141765d621c"
+      ],
+      "requiredImagesActuallyViewed": true,
+      "quality": {
+        "syntax": 4,
+        "visual": 4,
+        "semantic": 4
+      },
+      "qualityDefects": [],
+      "qualityNotes": "The eight interactions use the exact required participants, endpoints, and order, with no extra interactions. Solid calls and dashed responses are clearly distinguishable; all labels, arrowheads, and repeated participant boxes are readable.",
+      "blindItem": "item-f"
+    },
+    {
+      "id": "run04",
+      "case": "sequence",
+      "arm": "without",
+      "promptSha256": "78f867b8b42000c44d1371511877d76b90d66eb8ddb3303034bd7be5f325aeeb",
+      "model": {
+        "name": "gpt-6.1-sol",
+        "reasoningEffort": "ultra"
+      },
+      "inputTokens": 348038,
+      "cachedInputTokens": 338560,
+      "outputTokens": 2069,
+      "reasoningOutputTokens": 690,
+      "totalTokens": 350107,
+      "durationMs": 68361,
+      "elapsedMs": 68328,
+      "turnCount": 1,
+      "modelToolCalls": 7,
+      "interrupted": false,
+      "imageInputs": 2,
+      "uniqueImageInputHashes": [
+        "27c7fbff97080e6650990368d21ddb7a5e7a3f0bb203ecf652973ffc4e890e4b",
+        "ec42c26b4193948f4ba6893b3a6d83675991cf3c1e648192af38f87bccac029d"
+      ],
+      "artifacts": [
+        {
+          "file": "diagram.mmd",
+          "sha256": "4b449f667a73aedea7469be856bca6603efca593f611f94c993878d1c10dc916",
+          "imageInput": null
+        },
+        {
+          "file": "diagram.png",
+          "sha256": "c87e8b657b3921ffd13942100a9a27b0fab7f319d0d5b2d0d7f0ea3c9c5bfda9",
+          "imageInput": false
+        },
+        {
+          "file": "diagram.review.png",
+          "sha256": "ec42c26b4193948f4ba6893b3a6d83675991cf3c1e648192af38f87bccac029d",
+          "imageInput": true
+        },
+        {
+          "file": "diagram.svg",
+          "sha256": "65bf31b887db183e053e8820935e4b259a01ffd58b7e8a0a789cf6f06222fb05",
+          "imageInput": null
+        }
+      ],
+      "environment": {
+        "node": "v24.13.1",
+        "mermaid": "11.12.0",
+        "playwright": "1.62.1",
+        "browser": "155.0.8059.85"
+      },
+      "artifactConsistency": true,
+      "requiredReviewImageHashes": [
+        "ec42c26b4193948f4ba6893b3a6d83675991cf3c1e648192af38f87bccac029d"
+      ],
+      "requiredImagesActuallyViewed": true,
+      "quality": {
+        "syntax": 4,
+        "visual": 4,
+        "semantic": 4
+      },
+      "qualityDefects": [],
+      "qualityNotes": "All five participants and the eight numbered interactions appear in the required order. Solid calls and dashed responses are distinguishable; labels and activation bars remain readable without clipping.",
+      "blindItem": "item-a"
+    },
+    {
+      "id": "run05",
+      "case": "constraints",
+      "arm": "without",
+      "promptSha256": "86eb31174e00201547ffc6d1e290bf380bcc7f14d2f22e8331e2dea027dd6934",
+      "model": {
+        "name": "gpt-6.1-sol",
+        "reasoningEffort": "ultra"
+      },
+      "inputTokens": 458575,
+      "cachedInputTokens": 443264,
+      "outputTokens": 3974,
+      "reasoningOutputTokens": 1449,
+      "totalTokens": 462549,
+      "durationMs": 109808,
+      "elapsedMs": 109763,
+      "turnCount": 1,
+      "modelToolCalls": 9,
+      "interrupted": false,
+      "imageInputs": 4,
+      "uniqueImageInputHashes": [
+        "3b8d2a206075d20f4af40be7dd6cbf60fb3ff57470dbcd95fdb34029c850654d",
+        "9a3ecc025827d6e6b88b51403059a7a6cb14881233fb267bf3e87c592599402f",
+        "c8bef51b29440cd3e444f09732760e227ad87b69fa01fb0f03b886596631bad9",
+        "f14bdc06bb9d8557326264c30e93716ecddbec31a50f6ec8b32e26f878e2e958"
+      ],
+      "artifacts": [
+        {
+          "file": "diagram.mmd",
+          "sha256": "0faf1884c543374459c9881884eac859985f6da31f2069cfdbed91693b07989f",
+          "imageInput": null
+        },
+        {
+          "file": "diagram.png",
+          "sha256": "cd6fc023f05f002685f55c3863330338baa4b68fe268b023c711837e7731b90b",
+          "imageInput": false
+        },
+        {
+          "file": "diagram.review.png",
+          "sha256": "9a3ecc025827d6e6b88b51403059a7a6cb14881233fb267bf3e87c592599402f",
+          "imageInput": true
+        },
+        {
+          "file": "diagram.svg",
+          "sha256": "4215e51c58ec44ae5f5cb2f8d7d7a51ea08483d279be25b4f56ab066361a650f",
+          "imageInput": null
+        }
+      ],
+      "environment": {
+        "node": "v24.13.1",
+        "mermaid": "11.12.0",
+        "playwright": "1.62.1",
+        "browser": "155.0.8059.85"
+      },
+      "artifactConsistency": true,
+      "requiredReviewImageHashes": [
+        "9a3ecc025827d6e6b88b51403059a7a6cb14881233fb267bf3e87c592599402f"
+      ],
+      "requiredImagesActuallyViewed": true,
+      "quality": {
+        "syntax": 4,
+        "visual": 4,
+        "semantic": 4
+      },
+      "qualityDefects": [],
+      "qualityNotes": "The two independent value sets are separate from the publishing-time necessary condition. The diagram explicitly excludes sufficient permission, automatic publication, permanent approval, and inferred transition endpoints. Panel boundaries, contrast, and text are clear.",
+      "blindItem": "item-e"
+    },
+    {
+      "id": "run06",
+      "case": "constraints",
+      "arm": "with",
+      "promptSha256": "86eb31174e00201547ffc6d1e290bf380bcc7f14d2f22e8331e2dea027dd6934",
+      "model": {
+        "name": "gpt-6.1-sol",
+        "reasoningEffort": "ultra"
+      },
+      "inputTokens": 274569,
+      "cachedInputTokens": 262528,
+      "outputTokens": 3040,
+      "reasoningOutputTokens": 862,
+      "totalTokens": 277609,
+      "durationMs": 85374,
+      "elapsedMs": 85341,
+      "turnCount": 1,
+      "modelToolCalls": 5,
+      "interrupted": false,
+      "imageInputs": 4,
+      "uniqueImageInputHashes": [
+        "857063513a1500c07c631966e337600896bd324c55891d7e4432de5fadb0614b",
+        "c8d744c51365e6876bb4594bd3d22877758307ad9d31a943c8239265d1740d14",
+        "caaeca5e403cebf13220b5f9ec056a1b8f2f474da71c96e55e3c4ef88f995116"
+      ],
+      "artifacts": [
+        {
+          "file": "diagram.mmd",
+          "sha256": "dd58c9f0bfe0b28815cb7a846735c2c0fffd9cf997d1c55793b7aeb2ce7bbe55",
+          "imageInput": null
+        },
+        {
+          "file": "diagram.png",
+          "sha256": "656cbfba08fa26023b77414c4fec628fc62dd1d6b8a726cf7ce6ebc28a3fb041",
+          "imageInput": false
+        },
+        {
+          "file": "diagram.review.png",
+          "sha256": "c8d744c51365e6876bb4594bd3d22877758307ad9d31a943c8239265d1740d14",
+          "imageInput": true
+        },
+        {
+          "file": "diagram.svg",
+          "sha256": "670ae678e309cf73a74691f3d960e4e3e6d7dcb9be7ae520438c860e1fec2238",
+          "imageInput": null
+        }
+      ],
+      "environment": {
+        "node": "v24.13.1",
+        "mermaid": "11.12.0",
+        "playwright": "1.62.1",
+        "browser": "155.0.8059.85"
+      },
+      "artifactConsistency": true,
+      "requiredReviewImageHashes": [
+        "c8d744c51365e6876bb4594bd3d22877758307ad9d31a943c8239265d1740d14"
+      ],
+      "requiredImagesActuallyViewed": true,
+      "quality": {
+        "syntax": 4,
+        "visual": 4,
+        "semantic": 4
+      },
+      "qualityDefects": [],
+      "qualityNotes": "Both independent attribute value sets are complete. The prerequisite explicitly applies at publishing time, review may change afterward, and approval is neither sufficient nor an automatic trigger. The visible note rules out transition and chronology claims. All text and arrows are readable.",
+      "blindItem": "item-c"
+    }
+  ],
+  "notes": [
+    "Cases and baseline helper fixed before the first trial; English skill and renderer fixed before the first with-skill trial.",
+    "No discarded or replacement trials. Initial source errors and corrections are included.",
+    "The first without-skill flow trial includes a brief coordinator protocol-clarification pause; both time measures retain it.",
+    "Trial counters exclude setup, development, coordination, and independent grading.",
+    "These three synthetic matched pairs do not establish universal savings or human-validated quality equivalence."
+  ]
+}

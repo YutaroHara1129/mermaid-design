@@ -1,0 +1,25 @@
+---
+title: Shared notes and a revision feedback loop
+---
+flowchart LR
+  Prompt["Writing prompt"]
+  Planner["Outline planner"]
+  Writer["Draft writer"]
+  Reviewer["Draft reviewer"]
+  Publisher["Page publisher"]
+  Reader["Page reader"]
+  Feedback["Revision suggestions"]
+  Store[("Shared note store")]
+
+  Prompt -->|start an outline| Planner
+  Planner -->|section plan| Writer
+  Writer -->|draft text| Reviewer
+  Reviewer -->|accepted draft| Publisher
+  Reviewer -->|requested edits| Writer
+  Publisher -->|published page| Reader
+  Reader -->|observations| Feedback
+  Feedback -->|revise the next outline| Planner
+  Planner -->|save outline notes| Store
+  Store -->|retrieve source notes| Writer
+  Reviewer -->|save review notes| Store
+  Store -->|retrieve accepted text| Publisher

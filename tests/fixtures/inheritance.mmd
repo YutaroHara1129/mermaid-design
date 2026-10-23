@@ -1,0 +1,38 @@
+---
+title: Shapes, their parts, and their renderer
+---
+classDiagram
+  class Shape {
+    <<abstract>>
+    +area() float
+  }
+  class Circle {
+    +float radius
+    +area() float
+  }
+  class Rectangle {
+    +float width
+    +float height
+    +area() float
+  }
+  class Point {
+    +float x
+    +float y
+  }
+  class Style {
+    +string fillColor
+    +string lineColor
+  }
+  class Drawing {
+    +string title
+  }
+  class Renderer {
+    +render(Drawing drawing)
+  }
+
+  Shape <|-- Circle
+  Shape <|-- Rectangle
+  Shape "1" *-- "1" Point : origin
+  Shape "0..*" --> "1" Style : uses
+  Drawing "1" o-- "0..*" Shape : contains
+  Renderer ..> Drawing : renders

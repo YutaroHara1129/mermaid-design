@@ -1,0 +1,15 @@
+---
+title: Document preparation with bounded retries
+---
+stateDiagram-v2
+  [*] --> Idle
+  Idle --> Preparing: Start a document
+  Preparing --> Checking: Working copy ready
+  Checking --> Complete: Structure is valid
+  Checking --> RetryWait: Source is temporarily unavailable
+  RetryWait --> Preparing: Retry is permitted
+  RetryWait --> Cancelled: Retry limit is reached
+  Checking --> Rejected: Structure is invalid
+  Rejected --> Preparing: Corrected source is supplied
+  Complete --> [*]
+  Cancelled --> [*]

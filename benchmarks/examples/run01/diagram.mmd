@@ -1,0 +1,32 @@
+%% Arrows identify the component initiating each labeled action.
+%% Position has no semantic meaning.
+%%{init: {"theme":"base","fontFamily":"Arial, sans-serif","themeVariables":{"fontFamily":"Arial, sans-serif","fontSize":"17px","edgeLabelBackground":"#ffffff","primaryTextColor":"#172b4d","lineColor":"#56677d","clusterBkg":"#f7f9fc","clusterBorder":"#8495ad"},"flowchart":{"curve":"basis","nodeSpacing":36,"rankSpacing":48,"padding":16}}}%%
+flowchart LR
+    reader([Reader])
+    subgraph service[Service boundary]
+        web[Web client]
+        api[API]
+        db[(Database)]
+        queue[Queue]
+        worker[Worker]
+        storage[Object storage]
+        notifier[Notifier]
+    end
+
+    reader -->|Submits document<br/>request| web
+    web -->|Sends request| api
+    api -->|Stores request| db
+    api -->|Enqueues job| queue
+    worker -->|Takes jobs| queue
+    worker -->|Reads request| db
+    worker -->|Writes completed<br/>document| storage
+    worker --->|Requests completion<br/>notice| notifier
+    notifier -->|Sends completion<br/>notice| reader
+    worker -.->|Returns job on<br/>retryable failure| queue
+    worker -.->|Records permanent<br/>failure| db
+
+    classDef external fill:#ffffff,stroke:#56677d,stroke-width:2px,color:#172b4d;
+    classDef component fill:#e9f1fb,stroke:#55769e,stroke-width:1.5px,color:#172b4d;
+    class reader external;
+    class web,api,db,queue,worker,storage,notifier component;
+    linkStyle 9,10 stroke:firebrick,stroke-width:2px,color:firebrick;

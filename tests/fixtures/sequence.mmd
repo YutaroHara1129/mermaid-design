@@ -1,0 +1,24 @@
+---
+title: Opening a document and its outline
+---
+sequenceDiagram
+  actor Reader
+  participant Workspace as Reading workspace
+  participant Catalog as Document catalog
+  participant Store as Document store
+
+  Reader->>Workspace: Open a document
+  Workspace->>Catalog: Find the document description
+  Catalog-->>Workspace: Description or missing result
+  alt Document exists
+    par Load text
+      Workspace->>Store: Retrieve document text
+      Store-->>Workspace: Text and section identifiers
+    and Load outline
+      Workspace->>Catalog: Retrieve section headings
+      Catalog-->>Workspace: Ordered outline
+    end
+    Workspace-->>Reader: Display text with its outline
+  else Document is missing
+    Workspace-->>Reader: Display an empty reading view
+  end

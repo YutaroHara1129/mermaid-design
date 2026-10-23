@@ -1,0 +1,53 @@
+---
+title: Text conversion workspace containers
+---
+flowchart LR
+  subgraph Input["Input and document preparation"]
+    Browser["Browser interface for selecting a text document and its output preferences"]
+    Gateway["Request gateway for checking the document identifier and conversion options"]
+    Importer["Document importer for reading the selected source bytes into a working copy"]
+    Decoder["Text decoder for converting the working copy into a common character encoding"]
+    Normalizer["Whitespace normalizer for preserving paragraphs while unifying line endings"]
+  end
+
+  subgraph Analysis["Structure and content analysis"]
+    Validator["Structure validator for checking headings, lists, and paragraph boundaries"]
+    Segmenter["Section segmenter for assigning stable identifiers to document sections"]
+    Annotator["Term annotator for attaching definitions to selected words and phrases"]
+    Catalog["Section catalog for recording the document structure and section ordering"]
+    Indexer["Search index builder for collecting words and their section references"]
+  end
+
+  subgraph Assembly["Selection and page assembly"]
+    Query["Section selection service for applying the requested reading range and filters"]
+    Sorter["Section ordering service for arranging selected sections in document order"]
+    Assembler["Page assembly service for combining section text, headings, and annotations"]
+    Formatter["Layout formatter for applying the selected page width and text size"]
+    Preview["Preview generator for producing a readable sample of the formatted pages"]
+  end
+
+  subgraph Output["Output preparation and delivery"]
+    Checker["Output checker for confirming that every selected section appears in the result"]
+    Packager["Document packager for collecting formatted pages and a contents list"]
+    Exporter["Export writer for creating the requested downloadable document format"]
+    Download["Download interface for presenting the completed document to the reader"]
+  end
+
+  Browser -->|submit selection| Gateway
+  Gateway -->|accept request| Importer
+  Importer -->|source bytes| Decoder
+  Decoder -->|decoded text| Normalizer
+  Normalizer -->|normalized paragraphs| Validator
+  Validator -->|validated structure| Segmenter
+  Segmenter -->|identified sections| Annotator
+  Annotator -->|annotated sections| Catalog
+  Catalog -->|ordered section records| Indexer
+  Indexer -->|searchable references| Query
+  Query -->|selected sections| Sorter
+  Sorter -->|ordered selection| Assembler
+  Assembler -->|assembled pages| Formatter
+  Formatter -->|formatted pages| Preview
+  Preview -->|preview and pages| Checker
+  Checker -->|checked pages| Packager
+  Packager -->|document package| Exporter
+  Exporter -->|completed document| Download

@@ -1,0 +1,10 @@
+---
+title: Mermaid design workflow
+---
+flowchart TB
+  A["Agent + SKILL.md<br/>Interpret source facts"] -->|author| M["Mermaid source .mmd"]
+  M -->|render| R["Local Mermaid + Chromium<br/>Layout profiles + geometry diagnostics"]
+  R -->|export| O["SVG + PNG + hash manifest"]
+  O -->|view and check| Q["Agent review<br/>Meaning + readability"]
+  Q -->|concrete defect| M
+  Q -->|pass| V["Diagram + review record"]

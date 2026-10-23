@@ -1,0 +1,17 @@
+flowchart TB
+  record["Record"]
+  review["Review attribute<br/>pending · approved · declined<br/>May change after publication"]
+  publication["Publication attribute<br/>draft · published · archived"]
+  publish["Publish action<br/>Approval alone is not sufficient<br/>and does not trigger publication"]
+  notes["The two attributes are independent.<br/>Value lists define no transition rules,<br/>initial state, or final state.<br/>Arrows show facts and prerequisites, not chronology."]
+  record -->|"has attribute"| review
+  record -->|"has attribute"| publication
+  publish -.->|"requires review = approved<br/>at the instant of publishing"| review
+  classDef entity fill:#e8f0fe,stroke:#315f9b,color:#162f50,stroke-width:2px;
+  classDef attribute fill:#f1f7f4,stroke:#40745b,color:#193d2a;
+  classDef action fill:#fff4dd,stroke:#936d22,color:#533900;
+  classDef note fill:#f5f5f5,stroke:#747474,color:#333333;
+  class record entity;
+  class review,publication attribute;
+  class publish action;
+  class notes note;

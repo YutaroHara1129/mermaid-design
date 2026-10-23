@@ -1,0 +1,31 @@
+flowchart TB
+  reader["Reader<br/>(external)"]
+
+  subgraph service["Service boundary"]
+    web["Web client"]
+    api["API"]
+    db[("Database")]
+    queue["Queue"]
+    worker["Worker"]
+    storage[("Object storage")]
+    notifier["Notifier"]
+  end
+
+  reader -->|"submits document request"| web
+  web -->|"sends request"| api
+  api -->|"stores request"| db
+  api -->|"enqueues job"| queue
+  worker -->|"takes job from queue"| queue
+  worker -->|"reads request"| db
+  worker -->|"writes completed document"| storage
+  worker -->|"asks to send<br/>completion notice"| notifier
+  notifier -->|"sends completion notice"| reader
+  worker -->|"retryable failure:<br/>returns job"| queue
+  worker -->|"permanent failure:<br/>records failure"| db
+
+  classDef external fill:#f1f5f9,stroke:#475569,color:#0f172a;
+  classDef component fill:#eaf2ff,stroke:#315c9b,color:#102a43;
+  classDef data fill:#f4efff,stroke:#74549e,color:#302044;
+  class reader external;
+  class web,api,queue,worker,notifier component;
+  class db,storage data;
