@@ -1,4 +1,4 @@
 interface:
-  display_name: "Mermaid Design"
-  short_description: "Design and verify Mermaid diagrams with matching SVG and PNG"
-  default_prompt: "Use $mermaid-design to design a Mermaid diagram from the supplied facts, then render and review its meaning and readability."
+  display_name: 'Mermaid Design'
+  short_description: 'Design and verify Mermaid diagrams with matching SVG and PNG'
+  default_prompt: 'Use $mermaid-design to design a Mermaid diagram from the supplied facts, then render and review its meaning and readability.'

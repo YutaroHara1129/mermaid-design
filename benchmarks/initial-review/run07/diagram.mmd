@@ -1,0 +1,14 @@
+sequenceDiagram
+  participant R as Reader
+  participant W as Web client
+  participant A as API
+  participant D as Database
+  participant S as Object storage
+  R->>W: Open document
+  W->>A: Get document by identifier
+  A->>D: Query document location
+  D-->>A: Download location
+  A->>S: Request document bytes
+  S-->>A: Document bytes
+  A-->>W: Document
+  W-->>R: Display document

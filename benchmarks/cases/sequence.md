@@ -3,6 +3,7 @@
 Create one Mermaid sequence diagram answering: in what order does a user retrieve an existing document?
 
 The following synchronous interactions occur in precisely this order:
+
 1. Reader asks Web client to open a document.
 2. Web client calls API with the document identifier.
 3. API queries Database for the document location.

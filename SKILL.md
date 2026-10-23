@@ -11,14 +11,14 @@ Answer the reader's question without inventing relationships, membership, depend
 
 Record the following briefly: a few lines for a simple diagram, or a table for several boundaries and relationship types. Mark unknown facts as unresolved rather than filling them in.
 
-| Item | Establish |
-| --- | --- |
-| Reader and question | Who needs to decide what? State the specific question the diagram should answer. |
-| Scope and abstraction | What does a node represent: system, running application, step, state, person, or attribute? |
-| Entities and sets | Stable IDs, roles, membership, internal/external scope, and whether a boundary means responsibility, authority, deployment, or set membership. |
-| Dimensions and placement | Independent classifications such as time, responsibility, environment, type, and importance; the meaning assigned to position and color. |
-| Relationships | Source, destination, type, verb and object, direction, and any condition or multiplicity; a consistent reading of arrows. |
-| Facts to preserve | Exceptions, cycles, shared entities, cross-boundary links, counts, and identities whose omission could mislead; their source evidence. |
+| Item                     | Establish                                                                                                                                      |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Reader and question      | Who needs to decide what? State the specific question the diagram should answer.                                                               |
+| Scope and abstraction    | What does a node represent: system, running application, step, state, person, or attribute?                                                    |
+| Entities and sets        | Stable IDs, roles, membership, internal/external scope, and whether a boundary means responsibility, authority, deployment, or set membership. |
+| Dimensions and placement | Independent classifications such as time, responsibility, environment, type, and importance; the meaning assigned to position and color.       |
+| Relationships            | Source, destination, type, verb and object, direction, and any condition or multiplicity; a consistent reading of arrows.                      |
+| Facts to preserve        | Exceptions, cycles, shared entities, cross-boundary links, counts, and identities whose omission could mislead; their source evidence.         |
 
 Be able to explain whether two nodes have the same abstraction level, what entering a boundary asserts, whether an arrow could be read backward, and whether placement implies unsupported order.
 
@@ -26,19 +26,19 @@ Check in both directions: every required source fact appears, and every claim ma
 
 ## 2. Map the concepts to a notation
 
-| Situation | Representation | Avoid |
-| --- | --- | --- |
-| One system and external responsibilities | A focused system view with external roles identified | Mixing its internal parts with peer systems |
-| Peer execution units and shared data/control | A component view at one decomposition level; label external types | Mixing database tables or library functions into application-level boxes |
-| Membership or containment | Nested boundaries with their containment meaning named | Turning use/dependency into containment or inventing membership for layout |
-| Overlapping classifications | Attributes, a mapping table, or panels with common IDs; a set representation if overlap is the subject | Forcing independent dimensions into one nesting tree |
-| Branching or repeated work | A flowchart with branch conditions and reasons for returns | Flattening real branches or cycles for appearance |
-| Ordered interactions among actors | A sequence diagram distinguishing calls, asynchronous messages, responses, and alternatives | Presenting structural dependencies as chronological events |
-| Allowed transitions of one object | `stateDiagram-v2`, separating states, triggers, and conditions | Combining independent state dimensions into one mutually exclusive list |
-| Known attribute values without transition rules | Attributes with value sets, or a table | Inventing transitions, initial states, or final states from value lists |
-| Data references and multiplicity | `erDiagram`, `classDiagram`, or a mapping table | Treating cardinality, use direction, and data movement as the same arrow |
-| Inheritance versus use/ownership | Decide whether A is a kind of B or uses/contains B; use distinct connectors and endpoints | Making a dependency or part into a superclass |
-| Shared entities, cycles, or many-to-many relations | Preserve the actual graph; separate responsibilities and time if needed | Duplicating shared entities, deleting cycles, or inventing a hub to make a tree |
+| Situation                                          | Representation                                                                                         | Avoid                                                                           |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
+| One system and external responsibilities           | A focused system view with external roles identified                                                   | Mixing its internal parts with peer systems                                     |
+| Peer execution units and shared data/control       | A component view at one decomposition level; label external types                                      | Mixing database tables or library functions into application-level boxes        |
+| Membership or containment                          | Nested boundaries with their containment meaning named                                                 | Turning use/dependency into containment or inventing membership for layout      |
+| Overlapping classifications                        | Attributes, a mapping table, or panels with common IDs; a set representation if overlap is the subject | Forcing independent dimensions into one nesting tree                            |
+| Branching or repeated work                         | A flowchart with branch conditions and reasons for returns                                             | Flattening real branches or cycles for appearance                               |
+| Ordered interactions among actors                  | A sequence diagram distinguishing calls, asynchronous messages, responses, and alternatives            | Presenting structural dependencies as chronological events                      |
+| Allowed transitions of one object                  | `stateDiagram-v2`, separating states, triggers, and conditions                                         | Combining independent state dimensions into one mutually exclusive list         |
+| Known attribute values without transition rules    | Attributes with value sets, or a table                                                                 | Inventing transitions, initial states, or final states from value lists         |
+| Data references and multiplicity                   | `erDiagram`, `classDiagram`, or a mapping table                                                        | Treating cardinality, use direction, and data movement as the same arrow        |
+| Inheritance versus use/ownership                   | Decide whether A is a kind of B or uses/contains B; use distinct connectors and endpoints              | Making a dependency or part into a superclass                                   |
+| Shared entities, cycles, or many-to-many relations | Preserve the actual graph; separate responsibilities and time if needed                                | Duplicating shared entities, deleting cycles, or inventing a hub to make a tree |
 
 Structural and chronological diagrams answer different questions. Reuse semantic IDs across views, map any expansion or omission, and distinguish different entities, repeated views of one entity, and multiple instances.
 
@@ -62,13 +62,13 @@ If position represents quantity, chronology, or authority, name the axis and dir
 
 Use stable IDs, quoted Unicode labels, and a few role-based `classDef` styles where useful. Declaration order is not a coordinate system. Do not force every diagram into C4, LR, TB, or one palette.
 
-| Rendered problem | Repairs that preserve meaning |
-| --- | --- |
-| Long labels or poor wrapping | Separate names from detail, insert meaningful breaks, adjust width and spacing before reducing text size. |
-| Lines through unrelated nodes or boundary titles | Check relationships and direction, compare spacing/order/orientation, then consider separate views with references. |
-| Crossings that make paths ambiguous | Distinguish main and supporting paths; separate questions using common IDs and overview/detail views. Do not invent hubs or membership. |
-| Subgraph direction is ignored | External edges from child nodes can make Mermaid inherit the parent direction. Preserve actual endpoints and compare separate views. |
-| Text becomes unreadable when fitted | Check at the viewing width; split or provide detail views, scalable SVG, and detailed PNGs. |
+| Rendered problem                                 | Repairs that preserve meaning                                                                                                           |
+| ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Long labels or poor wrapping                     | Separate names from detail, insert meaningful breaks, adjust width and spacing before reducing text size.                               |
+| Lines through unrelated nodes or boundary titles | Check relationships and direction, compare spacing/order/orientation, then consider separate views with references.                     |
+| Crossings that make paths ambiguous              | Distinguish main and supporting paths; separate questions using common IDs and overview/detail views. Do not invent hubs or membership. |
+| Subgraph direction is ignored                    | External edges from child nodes can make Mermaid inherit the parent direction. Preserve actual endpoints and compare separate views.    |
+| Text becomes unreadable when fitted              | Check at the viewing width; split or provide detail views, scalable SVG, and detailed PNGs.                                             |
 
 Connecting to a boundary instead of an entity changes the endpoint's meaning. Do not move edges to a parent set for layout. Use invisible links only as ordering aids, with `%% layout-only` and their purpose recorded in the source. Do not fake layout with visible arrows, invented nodes, or direct SVG coordinate edits.
 
@@ -76,7 +76,7 @@ Choose direction for reading order and page shape. If it represents a meaningful
 
 ## 5. Batch rendering and review
 
-Use the installed Node runtime and the CLI contracts below. On a successful normal path, do not reread help, implementation, or full manifests. Inspect relevant internals when diagnosing failures. Run `npm run setup` only if dependencies are absent. Check compatibility with the pinned Mermaid version before using unfamiliar syntax.
+Use the installed Node runtime and the CLI contracts below. On a successful normal path, do not reread help, implementation, or full manifests. Inspect relevant internals when diagnosing failures. Run `npm run setup` only if dependencies are absent or stale. Check compatibility with the pinned Mermaid version before using unfamiliar syntax.
 
 For a new flowchart with no semantic axis, where cross-boundary or return edges complicate placement, generate LR/TB/BT candidates together. `--presentation-only` is your assertion that direction has no semantic meaning; it is not automated semantic approval. Do not use it for local edits or meaningful axes.
 
@@ -107,19 +107,19 @@ When tools support awaiting multiple operations, split calls only where a new mo
 For a code-capable Codex tool, the pattern is below. Set `renderCommand` and `executionOptions` to the actual paths, working directory, and required execution permissions.
 
 ```javascript
-let r = await tools.exec_command({cmd: renderCommand, ...executionOptions, yield_time_ms: 30000});
+let r = await tools.exec_command({ cmd: renderCommand, ...executionOptions, yield_time_ms: 30000 });
 let stdout = r.output;
 while (r.session_id) {
-  r = await tools.write_stdin({session_id: r.session_id, chars: "", yield_time_ms: 30000});
+  r = await tools.write_stdin({ session_id: r.session_id, chars: '', yield_time_ms: 30000 });
   stdout += r.output;
 }
 if (r.exit_code !== 0) throw Error(stdout);
-for (const line of stdout.trim().split("\n")) {
+for (const line of stdout.trim().split('\n')) {
   const result = JSON.parse(line);
   text(result);
   for (const item of result.images || []) {
-    if (item.purpose === "review-at-viewport-width" || item.purpose === "detail-crop")
-      image((await tools.view_image({path: item.path})).image_url);
+    if (item.purpose === 'review-at-viewport-width' || item.purpose === 'detail-crop')
+      image((await tools.view_image({ path: item.path })).image_url);
   }
 }
 ```

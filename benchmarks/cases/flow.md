@@ -3,6 +3,7 @@
 Create one Mermaid flowchart answering: which components exchange work and results, and where can a failed job return?
 
 Facts:
+
 - The external Reader submits a document request to the Web client.
 - The Web client sends the request to the API.
 - The API stores the request in the Database and enqueues a job in the Queue.

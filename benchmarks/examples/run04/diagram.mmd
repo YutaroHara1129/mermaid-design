@@ -1,20 +1,26 @@
 ---
 title: Retrieve an existing document
+config:
+  theme: neutral
+  sequence:
+    actorMargin: 50
+    messageMargin: 40
+    messageAlign: left
+    mirrorActors: false
 ---
-%%{init: {"theme": "neutral", "sequence": {"mirrorActors": false, "messageMargin": 40, "diagramMarginX": 24, "diagramMarginY": 24}}}%%
 sequenceDiagram
     autonumber
     actor Reader
     participant Web as Web client
     participant API
     participant DB as Database
-    participant Storage as Object storage
+    participant Store as Object storage
 
-    Reader->>+Web: Open document
-    Web->>+API: Get document (document identifier)
-    API->>+DB: Query document location
-    DB-->>-API: Document location
-    API->>+Storage: Request document bytes
-    Storage-->>-API: Document bytes
-    API-->>-Web: Document
-    Web-->>-Reader: Display document
+    Reader->>Web: Open document
+    Web->>API: Fetch document (document ID)
+    API->>DB: Query document location
+    DB-->>API: Document location
+    API->>Store: Request document bytes
+    Store-->>API: Document bytes
+    API-->>Web: Document
+    Web-->>Reader: Display document

@@ -1,37 +1,22 @@
-%% Attribute catalog and constraint, not a state-transition diagram.
-%% Invisible edges arrange panels only; there are no visible transition edges.
-%%{init: {"flowchart":{"wrappingWidth":360,"subGraphTitleMargin":{"top":8,"bottom":18}}}}%%
-flowchart TB
-  subgraph attrs["Independent attributes of one record"]
-    direction LR
-    review["review<br/>pending · approved · declined"]
-    publication["publication<br/>draft · published · archived"]
-    review ~~~ publication
+---
+config:
+  layout: dagre
+  look: classic
+  theme: neutral
+  themeCSS: '.edgeLabel .background { fill: #fff !important; opacity: 1 !important; }'
+  flowchart:
+    rankSpacing: 30
+---
+flowchart LR
+  reader["Reader"]
+  subgraph service["Service boundary"]
+    web["Web client"]
+    api["API"]
+    worker["Worker"]
+    storage["Blob store"]
   end
-
-  subgraph publishing["Required at the instant of publishing"]
-    direction TB
-    guard["review must be approved"]
-    limits["Approval alone does not trigger publication<br/>and is not sufficient permission to publish."]
-    guard ~~~ limits
-  end
-
-  subgraph interpretation["Reading these attributes"]
-    direction LR
-    after["After publication, review may change.<br/>A published record need not remain approved."]
-    lists["The value lists specify no transition rules,<br/>initial state, or final state."]
-    after ~~~ lists
-  end
-
-  attrs ~~~ publishing
-  publishing ~~~ interpretation
-
-  classDef attribute fill:#eaf2ff,stroke:#2d527d,stroke-width:2px,color:#142d4b,font-size:18px;
-  classDef required fill:#fff0ce,stroke:#966407,stroke-width:2px,color:#503500,font-size:20px;
-  classDef note fill:#ffffff,stroke:#8796a8,stroke-width:1px,color:#25364a,font-size:16px;
-  class review,publication attribute;
-  class guard required;
-  class limits,after,lists note;
-  style attrs fill:#f5f8fd,stroke:#9caec4,stroke-width:1px,color:#25364a
-  style publishing fill:#fffbf2,stroke:#bca16a,stroke-width:1px,color:#503500
-  style interpretation fill:#f8fafc,stroke:#b0bac7,stroke-width:1px,color:#25364a
+  reader -->|Submit request| web
+  web -->|Send request| api
+  api -->|Dispatch job| worker
+  worker -->|Store in Blob store| storage
+  worker -->|Notify completion| reader

@@ -1,0 +1,44 @@
+---
+config:
+  theme: base
+  fontFamily: "Arial, sans-serif"
+  themeCSS: "text { font-family: Arial, sans-serif !important; }"
+  themeVariables:
+    fontFamily: Arial, sans-serif
+    fontSize: 20px
+    primaryTextColor: '#172b3a'
+    lineColor: '#718096'
+    clusterBkg: '#f7fafd'
+    clusterBorder: '#718da5'
+  flowchart:
+    htmlLabels: false
+    wrappingWidth: 760
+    useMaxWidth: false
+    nodeSpacing: 36
+    rankSpacing: 30
+    padding: 20
+---
+flowchart TB
+  subgraph record["SAME RECORD · TWO INDEPENDENT ATTRIBUTES"]
+    direction LR
+    review["Review attribute<br/>pending · approved · declined"]
+    publication["Publication attribute<br/>draft · published · archived"]
+    review ~~~ publication
+  end
+
+  publish["PUBLISHING REQUIREMENT<br/>At the instant publishing occurs, review must be approved.<br/>Approval alone does not automatically publish the record<br/>or provide sufficient permission to publish."]
+  after["AFTER PUBLICATION<br/>The review attribute may change.<br/>A published record is not required to remain approved."]
+  scope["HOW TO READ THE VALUE LISTS<br/>They specify possible attribute values only.<br/>No transition rules, initial state, or final state are specified."]
+
+  record ~~~ publish
+  publish ~~~ after
+  after ~~~ scope
+
+  classDef attribute fill:#edf5fc,stroke:#537b9c,stroke-width:1.5px,color:#172b3a;
+  classDef requirement fill:#fff5d9,stroke:#a77c22,stroke-width:1.5px,color:#342b17;
+  classDef timing fill:#edf8f2,stroke:#56836d,stroke-width:1.5px,color:#173426;
+  classDef boundary fill:#f4f5f7,stroke:#788391,stroke-width:1px,color:#263443;
+  class review,publication attribute;
+  class publish requirement;
+  class after timing;
+  class scope boundary;

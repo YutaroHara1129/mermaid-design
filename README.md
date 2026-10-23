@@ -8,7 +8,7 @@ The agent checks three things: valid Mermaid syntax, readable images, and agreem
 
 ## Installation
 
-Use Node.js 20 or newer and a Chromium browser. Place the complete repository in your agent's skills directory as `mermaid-design`, or configure the agent to load [SKILL.md](SKILL.md). Keep the scripts and package files alongside it.
+Use Node.js 24.22.1 LTS (`.nvmrc`), npm 11.19.1, and a Chromium browser. The repository enforces supported Node.js and npm versions with `engine-strict`. Place the complete repository in your agent's skills directory as `mermaid-design`, or configure the agent to load [SKILL.md](SKILL.md). Keep the scripts and package files alongside it.
 
 From the repository directory:
 
@@ -17,9 +17,9 @@ npm run setup
 npm exec --prefix .runtime -- playwright install chromium
 ```
 
-Setup installs the locked dependencies into `.runtime/`. If Chromium is already installed, skip the second command and pass its executable with `--browser`, or set `MERMAID_BROWSER`.
+Setup installs only the locked production dependencies into `.runtime/`. If Chromium is already installed, skip the second command and pass its executable with `--browser`, or set `MERMAID_BROWSER`. After dependency updates, rerun `npm run setup`; the renderer rejects stale installed versions. Refresh a standard development installation with `npm ci` instead.
 
-The locked renderer uses Mermaid 11.12.0 and Playwright 1.62.1. The measurements below used Node.js 24.13.1 on macOS.
+The renderer pins Mermaid 12.2.0, Playwright 1.64.1, and YAML 2.9.1. See [Development](#development) for the nvm setup and validation commands.
 
 ## Usage
 
@@ -44,51 +44,71 @@ For a new flowchart whose direction carries no meaning, `drafts --presentation-o
 
 ![From source facts through rendering to a reviewed diagram](docs/architecture.svg)
 
-| Component | Function |
-| --- | --- |
-| `SKILL.md` | Agent instructions for relationships, boundaries, notation, and review |
-| `scripts/diagram.cjs` | Candidate sources, batch rendering, exports, and hash verification |
-| `scripts/audit.cjs` | Browser-side geometry diagnostics |
-| `scripts/setup.cjs`, `scripts/runtime.cjs` | Locked dependency installation and resolution |
-| `.mmd`, `.svg`, `.png`, `.render.json` | Source, derived images, and provenance record |
+| Component                                  | Function                                                               |
+| ------------------------------------------ | ---------------------------------------------------------------------- |
+| `SKILL.md`                                 | Agent instructions for relationships, boundaries, notation, and review |
+| `scripts/diagram.cjs`                      | Candidate sources, batch rendering, exports, and hash verification     |
+| `scripts/audit.cjs`                        | Browser-side geometry diagnostics                                      |
+| `scripts/setup.cjs`, `scripts/runtime.cjs` | Locked dependency installation and resolution                          |
+| `.mmd`, `.svg`, `.png`, `.render.json`     | Source, derived images, and provenance record                          |
 
 Rendering runs locally with browser network requests blocked. A source edit requires regenerated exports for that diagram. Existing review can be reused only when its facts, source, environment, configuration, and artifacts still match. Automatic semantic and visual approval flags remain `false`; the separate review records the checks actually performed.
 
 ## Measured comparison
 
-Measured on 2026-10-23 with three matched synthetic tasks and fresh agent contexts. The without-skill arm used standard Mermaid knowledge and a basic single-configuration renderer. The with-skill arm loaded this English skill and its CLI. Both used the same model, dependencies, browser, task facts, export requirements, and image-viewing capability.
+Measured on 2026-10-24 (JST) with five matched synthetic tasks: two creations, two local edits, and one semantic repair. Every trial used a fresh agent context. The without-skill arm used standard Mermaid knowledge and a basic single-configuration renderer; the with-skill arm loaded this English skill and its CLI. Both used the same model, dependencies, browser, case text, export requirements, and image-viewing tools.
 
-| Case | Without: tokens | With: tokens | Without: seconds | With: seconds |
-| --- | ---: | ---: | ---: | ---: |
-| Component flow | 1,027,142 | 242,832 | 231.6 | 110.0 |
-| Retrieval sequence | 350,107 | 177,551 | 68.4 | 60.0 |
-| Independent attributes | 462,549 | 277,609 | 109.8 | 85.4 |
+| Case                          | Without: tokens | With: tokens | Without: active seconds | With: active seconds |
+| ----------------------------- | --------------: | -----------: | ----------------------: | -------------------: |
+| Component creation            |         363,152 |      245,913 |                    95.2 |                135.2 |
+| Sequence creation             |         626,828 |      334,085 |                   156.3 |                126.1 |
+| Storage label edit            |         899,259 |      226,261 |                   227.0 |                 91.0 |
+| Response label edit           |         462,670 |      509,688 |                   104.6 |                192.3 |
+| Independent attributes repair |         481,706 |      389,004 |                   151.1 |                163.5 |
 
-Across all three pairs, processed tokens fell from 1,839,798 to 697,992 (62.1% fewer), and worker time from 409.8 to 255.3 seconds (37.7% shorter). Model tool calls fell from 36 to 12.
+Across all five pairs, processed tokens changed from 2,833,615 to 1,704,951 (39.8% fewer), and worker time from 734.2 to 708.1 seconds (3.6% shorter). Model tool calls changed from 53 to 29. The five with-skill trials together used 1,704,951 tokens, below the 2,000,000-token acceptance limit.
 
-An independent review with treatment labels withheld scored all three with-skill results 4/4 for syntax, visual quality, and semantic accuracy. No paired score decreased. The without-skill flow scored 3/4 visually because an edge crossed a boundary title; its other scores and the other two results were 4/4.
+A separate reviewer, with treatment labels withheld, scored every with-skill result 4/4 for syntax, visual quality, and semantic accuracy. No paired final score decreased. The initial review found a lifeline crossing message text in one sequence from each arm. Those original workers corrected their outputs; all continuation tokens and work time are included, and the initial grades and affected artifacts are retained. Final source/export hashes and actual image inputs were checked for both authors and the reviewer.
 
-Tokens are the native runtime's reported input plus output, including cached input. Cached input is a subset of input, not an additional charge in this count. Time is the completed worker turn duration, including tool waits; setup, coordinator work, independent grading, and service time between runs are excluded. All six trials completed without an interruption.
+Tokens are the native runtime's reported input plus output, including cached input once within input. Active work time sums completed worker turn durations, including tool waits, recoverable failures, and quality-gate corrections. Wall-clock elapsed times, including coordination between turns, are reported separately in the data. Active-work totals exclude setup, development, coordination, independent grading, and service time between trials. All ten trials completed without interruption or replacement.
 
-The first without-skill flow trial includes a brief protocol-clarification pause, retained in the timing. These are three single-case pairs on one model/runtime; they do not establish general speedups or human-validated quality equivalence.
+These are five single-case pairs on one model/runtime. They do not establish general speedups or human-validated quality equivalence.
 
-The [method, exact prompts, counters, quality scores, and example outputs](benchmarks/README.md) are included. Recompute the table totals with:
+The [method, exact prompts, counters, quality scores, and example outputs](benchmarks/README.md) are included. Recompute the totals with:
 
 ```sh
 node benchmarks/summarize.cjs
 ```
 
-## Tests
+## Development
 
-For development, install dependencies in the standard npm layout:
+Use the Node.js 24.22.1 LTS version in `.nvmrc` and npm 11.19.1. Install development dependencies in the standard npm layout:
 
 ```sh
-npm ci --ignore-scripts
-npx playwright install chromium
-npm test
+nvm install
+nvm use
+npm ci
+npm exec -- playwright install chromium
+npm run check
 ```
 
-The suite covers seven fixtures across five diagram families, source preservation, invalid input, artifact tampering, stale exports, geometry faults, and PNG coverage and fidelity. The release check generated 17 detail tiles. `npm run test:drafts` runs 16 source-candidate checks without launching a browser.
+Keep lifecycle scripts enabled for `npm ci`: its `prepare` script installs Husky hooks.
+
+| Command                | Checks                                                       |
+| ---------------------- | ------------------------------------------------------------ |
+| `npm run lint`         | ESLint with no warnings                                      |
+| `npm run format:check` | Prettier formatting                                          |
+| `npm run test:unit`    | Unit and runtime cases without Chromium                      |
+| `npm run test:browser` | Browser rendering and image checks                           |
+| `npm test`             | All Vitest tests                                             |
+| `npm run check:fast`   | Lint, formatting, and unit/runtime tests                     |
+| `npm run check`        | Fast checks, browser tests, and benchmark counter validation |
+
+Vitest runs 17 unit/runtime tests and one browser integration suite covering seven fixtures across five diagram families. Checks include source preservation, invalid input, artifact tampering, stale exports, geometry faults, and PNG coverage and fidelity. All 27 generated PNGs are compared with independent SVG DOM renders.
+
+Husky runs `check:fast` before commits and `check` before pushes. These local hooks can be bypassed; the repository has no server-required CI checks or GitHub Actions workflows.
+
+Once this configuration is on the default branch, Dependabot opens npm update pull requests weekly and groups development-dependency minor and patch updates. Updates do not merge automatically. Bot pull requests do not execute local hooks, so a maintainer must check out each pull request and run `npm ci && npm run check` locally before merging it.
 
 ## License
 

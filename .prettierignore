@@ -1,0 +1,10 @@
+node_modules/
+.runtime/
+.test-output/
+.benchmark-output/
+.vitest/
+coverage/
+benchmarks/examples/
+benchmarks/initial-review/
+**/*.svg
+.husky/_/
