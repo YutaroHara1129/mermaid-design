@@ -1,0 +1,33 @@
+---
+title: "Document pipeline · arrows name the initiator's action"
+---
+flowchart LR
+  %% Layout direction is presentation only; position does not encode sequence.
+  reader["Reader<br/>(external)"]
+  subgraph service["Service boundary"]
+    web["Web client"]
+    api["API"]
+    database["Database"]
+    queue["Queue"]
+    worker["Worker"]
+    storage["Object storage"]
+    notifier["Notifier"]
+  end
+
+  reader -->|"submit document request"| web
+  web -->|"send request"| api
+  api -->|"store request"| database
+  api -->|"enqueue job"| queue
+  worker -->|"take job"| queue
+  worker -->|"read request"| database
+  worker -->|"write completed<br/>document"| storage
+  worker -->|"request completion<br/>notice"| notifier
+  notifier -->|"send completion notice"| reader
+  worker -->|"return job<br/>(retryable failure)"| queue
+  worker -->|"record failure<br/>(permanent failure)"| database
+
+  classDef internal fill:#edf4fc,stroke:#42678f,color:#142e4c,stroke-width:1.5px;
+  classDef external fill:#f4f4f4,stroke:#656565,color:#222222,stroke-width:1.5px;
+  class web,api,database,queue,worker,storage,notifier internal;
+  class reader external;
+  style service fill:#fbfcfe,stroke:#718398,stroke-width:1.5px;

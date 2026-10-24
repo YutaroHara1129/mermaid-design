@@ -1,0 +1,13 @@
+flowchart LR
+  reader["Reader"]
+  subgraph service["Service boundary"]
+    web["Web client"]
+    api["API"]
+    worker["Worker"]
+    storage["Blob store"]
+  end
+  reader -->|Submit request| web
+  web -->|Send request| api
+  api -->|Dispatch job| worker
+  worker -->|Store in Blob store| storage
+  worker -->|Notify completion| reader

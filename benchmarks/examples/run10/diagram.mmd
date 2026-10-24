@@ -1,0 +1,25 @@
+%% Reader question: What values can one record hold, and what is required to publish it?
+%% Boundaries group the record's attributes and the publishing constraints.
+%% No arrows: position encodes neither transitions nor execution order.
+flowchart TB
+  subgraph RECORD["One record · two independent attributes"]
+    direction LR
+    REVIEW["Review attribute<br/>pending · approved · declined"]
+    PUBLICATION["Publication attribute<br/>draft · published · archived"]
+  end
+
+  subgraph PUBLISH["Publishing constraints"]
+    direction LR
+    GATE["At the instant publishing occurs<br/>review must be approved"]
+    LIMIT["Approval alone<br/>does not automatically publish<br/>or provide sufficient permission to publish"]
+    AFTER["After publication<br/>the review attribute may change"]
+  end
+
+  UNSPECIFIED["The attribute value lists define<br/>no transition rules, initial state, or final state"]
+
+  classDef attribute fill:#eaf3fa,stroke:#2d5f82,color:#15334a,stroke-width:1.5px;
+  classDef constraint fill:#fff5dd,stroke:#96702c,color:#48340d,stroke-width:1.5px;
+  classDef scope fill:#f4f5f7,stroke:#707884,color:#29313b,stroke-width:1.2px;
+  class REVIEW,PUBLICATION attribute;
+  class GATE,LIMIT,AFTER constraint;
+  class UNSPECIFIED scope;

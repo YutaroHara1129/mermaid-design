@@ -1,0 +1,23 @@
+---
+title: Reading workspace context
+---
+flowchart LR
+  Reader["Reader"]
+  Curator["Curator"]
+  Workspace["Reading workspace"]
+  Catalog["Document catalog"]
+  Search["Search index"]
+  Store[("Document store")]
+  Exporter["Export formatter"]
+  Glossary["Reference glossary"]
+  Scheduler["Refresh scheduler"]
+
+  Reader -->|browse and read| Workspace
+  Curator -->|organize documents| Workspace
+  Workspace -->|look up descriptions| Catalog
+  Workspace -->|find matching passages| Search
+  Workspace -->|retrieve text| Store
+  Workspace -->|prepare a copy| Exporter
+  Workspace -->|resolve terms| Glossary
+  Scheduler -->|request an index refresh| Search
+  Catalog -->|identify stored documents| Store

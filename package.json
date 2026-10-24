@@ -1,0 +1,40 @@
+{
+  "name": "mermaid-design-skill",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local, source-preserving Mermaid rendering and visual diagnostics",
+  "engines": {
+    "node": ">=24.22.1 <25",
+    "npm": ">=11.19.1 <12"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.cjs",
+    "prepare": "husky",
+    "lint": "eslint . --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit.test.mjs tests/runtime.test.mjs",
+    "test:browser": "vitest run tests/browser.test.mjs",
+    "test:drafts": "node tests/drafts.cjs",
+    "benchmark:check": "node benchmarks/summarize.cjs",
+    "check:fast": "npm run lint && npm run format:check && npm run test:unit",
+    "check": "npm run check:fast && npm run test:browser && npm run benchmark:check"
+  },
+  "dependencies": {
+    "mermaid": "12.2.0",
+    "playwright": "1.64.1",
+    "yaml": "2.9.1"
+  },
+  "license": "MIT",
+  "packageManager": "npm@11.19.1",
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.13.0",
+    "globals": "17.13.0",
+    "husky": "9.1.7",
+    "prettier": "3.9.10",
+    "vitest": "5.0.5"
+  }
+}

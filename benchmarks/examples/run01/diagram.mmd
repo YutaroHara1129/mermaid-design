@@ -1,0 +1,50 @@
+---
+config:
+  theme: base
+  themeVariables:
+    fontFamily: Arial, sans-serif
+    fontSize: 17px
+    primaryColor: '#edf4fb'
+    primaryTextColor: '#172b43'
+    primaryBorderColor: '#51749b'
+    lineColor: '#52647a'
+    clusterBkg: '#f7f9fc'
+    clusterBorder: '#71849b'
+    edgeLabelBackground: '#ffffff'
+  flowchart:
+    curve: linear
+    nodeSpacing: 50
+    rankSpacing: 70
+---
+flowchart LR
+    reader(["Reader"])
+    subgraph service["Service boundary"]
+        web["Web client"]
+        api["API"]
+        db[("Database")]
+        queue["Queue"]
+        worker["Worker"]
+        storage["Object storage"]
+        notifier["Notifier"]
+    end
+
+    reader -->|"Submit document request"| web
+    web -->|"Send request"| api
+    api -->|"Store request"| db
+    api -->|"Enqueue job"| queue
+    worker -->|"Take jobs"| queue
+    worker -->|"Read request"| db
+    worker -->|"Write completed document"| storage
+    worker -->|"Request completion notice"| notifier
+    notifier -->|"Send completion notice"| reader
+    worker -.->|"Return job: retryable failure"| queue
+    worker -.->|"Record failure: permanent failure"| db
+
+    classDef external fill:#ffffff,stroke:#2e638d,stroke-width:2px,color:#17334b;
+    classDef active fill:#e8f2ff,stroke:#4676a8,stroke-width:1.5px,color:#172b43;
+    classDef data fill:#eff5f3,stroke:#548271,stroke-width:1.5px,color:#1e3d31;
+    class reader external;
+    class web,api,worker,notifier active;
+    class db,queue,storage data;
+    linkStyle 9 stroke:#a76a09,stroke-width:2px;
+    linkStyle 10 stroke:#ac3446,stroke-width:2px;

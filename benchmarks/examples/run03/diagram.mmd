@@ -1,0 +1,22 @@
+---
+config:
+    sequence:
+        messageAlign: left
+---
+sequenceDiagram
+    title Retrieve an existing document
+    autonumber
+    actor Reader
+    participant Web as Web client
+    participant API
+    participant Database
+    participant Storage as Object storage
+
+    Reader->>Web: Open document
+    Web->>API: Request document (document identifier)
+    API->>Database: Query document location
+    Database-->>API: Return document location
+    API->>Storage: Request document bytes
+    Storage-->>API: Return document bytes
+    API-->>Web: Return document
+    Web-->>Reader: Display document
