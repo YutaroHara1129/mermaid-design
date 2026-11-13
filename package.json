@@ -23,7 +23,7 @@
     "check": "npm run check:fast && npm run test:browser && npm run benchmark:check"
   },
   "dependencies": {
-    "mermaid": "12.2.0",
+    "mermaid": "12.3.0",
     "playwright": "1.64.1",
     "yaml": "2.9.1"
   },
