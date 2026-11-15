@@ -23,18 +23,18 @@
     "check": "npm run check:fast && npm run test:browser && npm run benchmark:check"
   },
   "dependencies": {
-    "mermaid": "12.2.0",
     "playwright": "1.65.0",
+    "mermaid": "12.3.0",
     "yaml": "2.9.1"
   },
   "license": "MIT",
   "packageManager": "npm@11.19.1",
   "devDependencies": {
     "@eslint/js": "10.0.1",
-    "eslint": "10.13.0",
-    "globals": "17.13.0",
+    "eslint": "10.14.0",
+    "globals": "17.14.0",
     "husky": "9.1.7",
     "prettier": "3.9.10",
-    "vitest": "5.0.5"
+    "vitest": "5.1.0"
   }
 }
